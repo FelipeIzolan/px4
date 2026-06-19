@@ -25,9 +25,9 @@ uint8_t px4_get(const px4 * ctx, uint8_t x, uint8_t y) {
   return px4_unpack_lo(byte);
 }
 
-px4 * px4_decode(FILE * file) {
-  px4 * p = malloc(sizeof(px4));
-
+px4 * px4_decode(const char * filename) {
+  FILE * file = fopen(filename, "rb");
+  
   if (file == NULL)
       return NULL;
 
@@ -35,12 +35,45 @@ px4 * px4_decode(FILE * file) {
   if (fgetc(file) != 'P' || fgetc(file) != 'X' || fgetc(file) != '4')
       return NULL;
 
-  p->width = fgetc(file);
-  p->height = fgetc(file);
+  px4 * ctx = malloc(sizeof(px4));
+  
+  ctx->width = fgetc(file);
+  ctx->height = fgetc(file);
 
-  uint16_t length = (p->width * p->height + 1) / 2;
-  p->data = malloc(length);
-  fread(p->data, sizeof(uint8_t), length, file);
+  uint16_t size = (ctx->width * ctx->height + 1) / 2;
+  ctx->data = malloc(size);
+  fread(ctx->data, sizeof(uint8_t), size, file);
 
-  return p;
+  return ctx;
+}
+
+uint8_t px4_encode(const px4 * ctx, const char * filename) {
+  FILE * file = fopen(filename, "wb");
+  
+  if (file == NULL)
+    return 0;
+
+  // identity
+  fputc('P', file);
+  fputc('X', file);
+  fputc('4', file);
+  
+  fputc(ctx->width, file);
+  fputc(ctx->height, file);
+  
+  uint16_t size = (ctx->width * ctx->height + 1) / 2;
+  fwrite(ctx->data, sizeof(uint8_t), size, file);
+
+  fflush(file);
+  fclose(file);
+  
+  return 1;
+}
+
+void px4_free(px4 * ctx) {
+  if (ctx) {
+    if (ctx->data)
+      free(ctx->data);
+    free(ctx);
+  }
 }
