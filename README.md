@@ -2,7 +2,7 @@
 
 Palette-indexed 4-bit image format.
 
-## AAA
+## 💾 Format
 
 <table>
   <thead>
@@ -16,7 +16,22 @@ Palette-indexed 4-bit image format.
     <tr>
       <td>0</td>
       <td>3</td>
-      <td>The identity of PX4. </td>
+      <td>The identity of "PX4".</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1</td>
+      <td>Image width.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1</td>
+      <td>Image height.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>(Image width * Image height + 1) / 2</td>
+      <td>Image data</td>
     </tr>
   </tbody>
 </table>
