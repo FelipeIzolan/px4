@@ -21,17 +21,22 @@ Palette-indexed 4-bit image format.
     <tr>
       <td>3</td>
       <td>1</td>
-      <td>Image width.</td>
+      <td>Image width; The maximum width is 255.</td>
     </tr>
     <tr>
       <td>4</td>
       <td>1</td>
-      <td>Image height.</td>
+      <td>Image height; The maximum height is 255.</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>(Image width * Image height + 1) / 2</td>
-      <td>Image data</td>
+      <td>2</td>
+      <td>Image data size; The maximum size is 32513 bytes.</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>~</td>
+      <td>Image data.</td>
     </tr>
   </tbody>
 </table>

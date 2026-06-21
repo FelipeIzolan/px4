@@ -6,6 +6,7 @@
 typedef struct {
   uint8_t width;
   uint8_t height;
+  uint16_t size;
   uint8_t * data;
 } px4;
 
