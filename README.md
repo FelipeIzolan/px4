@@ -2,7 +2,7 @@
 
 Palette-indexed 4-bit image format.
 
-## 💾 Format
+## 📄 File structure
 
 <table>
   <thead>
@@ -40,3 +40,16 @@ Palette-indexed 4-bit image format.
     </tr>
   </tbody>
 </table>
+
+
+### 4-bit per index
+<img width="196" height="116" alt="image" src="https://github.com/user-attachments/assets/8b4374de-ff49-47e1-991f-701cec55f90e" />
+
+Each index is represented by a 4-bit value, allowing a palette of 16 colors.\
+To optimize storage, two 4-bit values are packed into a single byte, making the file 2x smaller.
+
+> **Curiosity**: A 4-bit value is called 'nibble'.
+
+### Run-length Encoding Algorithm
+
+...
